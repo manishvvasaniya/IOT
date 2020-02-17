@@ -1,0 +1,46 @@
+#include <Ultrasonic.h>
+
+/*
+ * Pass as a parameter the trigger and echo pin, respectively,
+ * or only the signal pin (for sensors 3 pins), like:
+ * Ultrasonic ultrasonic(13);
+ */
+Ultrasonic ultrasonic1(12, 13);
+Ultrasonic ultrasonic2(5, 6);
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Serial.print("parking 1 Distance in CM: ");
+  // Pass INC as a parameter to get the distance in inches
+  int flag1=0,flag2=0;
+  float dist1=0, dist2=0;
+  
+  dist1 = ultrasonic1.distanceRead();
+  //Serial.println(ultrasonic1.distanceRead());
+
+  if(dist1>=15)
+  {
+    Serial.println("Parking 1 is Empty");
+    //Serial.println(dist1);
+    flag1=1;
+    }
+  //Serial.print("parking 2 Distance in CM: ");
+  dist2 = ultrasonic2.distanceRead();
+  //Serial.println(ultrasonic2.distanceRead());
+  if(dist2>=15)
+  {
+    Serial.println("Parking 2 is Empty");
+    //Serial.println(dist2);
+    flag2=1;
+     }
+
+  if(flag1==0 && flag2==0)
+  {
+    Serial.println("Parking is not avilable");
+  }
+  
+  delay(1000);
+}
